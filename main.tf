@@ -1,30 +1,12 @@
-resource "google_compute_instance" "dareit-vm-ci" {
-  name         = "dareit-vm-tf-ci"
-  machine_type = "e2-medium"
-  zone         = "us-central1-a"
+resource "google_storage_bucket" "t8-terraform-state-file" {
+  name          = t8-terraform-state-file
+  location      = EU
+  force_destroy = true
 
-  tags = ["dareit"]
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-      labels = {
-        managed_by_terraform = "true"
-      }
-    }
-  }
-
-  network_interface {
-    network = "default"
-
-    access_config {
-      // Ephemeral public IP
-    }
-  }
+  public_access_prevention = "enforced"
 }
 
-resource "google_storage_bucket" "static-site" {
-  project       = "bamboo-creek-401412" 
+resource "google_storage_bucket" "t8-static-site" {
   name          = "t8-static-site"
   location      = "EU"
   force_destroy = true
@@ -45,26 +27,21 @@ resource "google_storage_bucket" "static-site" {
 
 
 resource "google_storage_bucket_object" "t8-static-site" {
-  name   = "index.html"
-  source = "website/index.html"
-  bucket = google_storage_bucket.t8-static-site.index.html
+  bucket = google_storage_bucket.t8-static-site.name
+  role   = "roles/storage.objectViewer"
+  members = [
+    "allUsers"
+  ]
 }
 
-resource "google_storage_bucket_access_control" "t8-static-site" {
-  bucket = google_storage_bucket.t8-static-site.id
-  role   = "READER"
-  entity = "allUsers"
-
-}
-
-resource "google_storage_bucket_object" "file" {
+resource "google_storage_bucket_object" "picture" {
   name   = "happy-cloud.jpg"
-  source = "website/happy-cloud.jpg"
-  bucket = google_storage_bucket.t8-static-site.name
+  source = ".website/happy-cloud.jpg"
+  bucket = "t8-static-site"
 }
 
-resource "google_storage_bucket_object" "url" {
-  name   = "url_address"
-  source = "website/url_address"
-  bucket = google_storage_bucket.t8-static-site.name
+resource "google_storage_bucket_object" "main_page" {
+  name   = "index.html"
+  source = ".website/index.html"
+  bucket = "t8-static-site"
 }
