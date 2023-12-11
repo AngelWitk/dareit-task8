@@ -28,10 +28,8 @@ resource "google_storage_bucket" "t8-static-site" {
 
 resource "google_storage_bucket_object" "t8-static-site" {
   bucket = google_storage_bucket.t8-static-site.name
-  role   = "roles/storage.objectViewer"
-  members = [
-    "allUsers"
-  ]
+  role   = "READER"
+  entity = "allUsers"
 }
 
 resource "google_storage_bucket_object" "picture" {
