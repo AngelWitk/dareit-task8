@@ -43,7 +43,6 @@ resource "google_storage_bucket" "static-site" {
   }
 }
 
-}
 
 resource "google_storage_bucket_object" "t8-static-site" {
   name   = "index.html"
