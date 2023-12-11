@@ -45,13 +45,13 @@ resource "google_storage_bucket" "static-site" {
 
 }
 
-resource "google_storage_bucket_object" "static-site" {
+resource "google_storage_bucket_object" "t8-static-site" {
   name   = "index.html"
   source = "website/index.html"
-  bucket = google_storage_bucket.static-website.name
+  bucket = google_storage_bucket.t8-static-site.name
 }
 
-resource "google_storage_bucket_access_control" "public_rule" {
+resource "google_storage_bucket_access_control" "t8-static-site" {
   bucket = google_storage_bucket.t8-static-site.id
   role   = "READER"
   entity = "allUsers"
@@ -61,11 +61,11 @@ resource "google_storage_bucket_access_control" "public_rule" {
 resource "google_storage_bucket_object" "file" {
   name   = "happy-cloud.jpg"
   source = "website/happy-cloud.jpg"
-  bucket = google_storage_bucket.static-website.name
+  bucket = google_storage_bucket.t8-static-site.name
 }
 
 resource "google_storage_bucket_object" "url" {
   name   = "url_address"
   source = "website/url_address"
-  bucket = google_storage_bucket.static-website.name
+  bucket = google_storage_bucket.t8-static-site.name
 }
