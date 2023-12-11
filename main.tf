@@ -24,7 +24,7 @@ resource "google_compute_instance" "dareit-vm-ci" {
 }
 
 resource "google_storage_bucket" "static-site" {
-  project       = "bamboo-creek-401412"
+  project       = "bamboo-creek-401412" 
   name          = "t8-static-site"
   location      = "EU"
   force_destroy = true
