@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "t8-terraform-state-file" {
-  name          = t8-terraform-state-file
-  location      = EU
+  name          = "t8-terraform-state-file"
+  location      = "EU"
   force_destroy = true
 
   public_access_prevention = "enforced"
