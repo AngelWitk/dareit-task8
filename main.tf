@@ -47,7 +47,7 @@ resource "google_storage_bucket" "static-site" {
 resource "google_storage_bucket_object" "t8-static-site" {
   name   = "index.html"
   source = "website/index.html"
-  bucket = google_storage_bucket.t8-static-site.name
+  bucket = google_storage_bucket.t8-static-site.index.html
 }
 
 resource "google_storage_bucket_access_control" "t8-static-site" {
