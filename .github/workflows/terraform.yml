@@ -32,7 +32,7 @@ jobs:
         GOOGLE_CREDENTIALS: ${{ secrets.TF_GOOGLE_CREDENTIALS }}
 
     # Run terraform fmt to check whether the formatting of the files is correct
-    - #name: Terraform Format
+    #name: Terraform Format
       #run: terraform fmt -check
 
     # Run terraform plan
